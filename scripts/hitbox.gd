@@ -16,7 +16,5 @@ func _ready():
 	print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 
 func _on_area_entered(area):
-	print("foo")
 	if area is HurtboxComponent:
-		print("Hitbox intersected hurtbox")
 		area.take_hit(hit_data)

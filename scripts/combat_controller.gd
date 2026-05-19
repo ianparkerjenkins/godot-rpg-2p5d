@@ -1,19 +1,14 @@
 class_name CombatController
 extends Node
 
-# TODO: Add weapon system for equip to bind 
-# what melee_hitbox and equipped_weapon is
-# TODO: Figure out why the first hit_data is always null 
 # TODO: Attack animations don't appear to be blending back into idle
+# TODO: Add a new weapon and equip cycle to it to hit enemy
+# TODO: Characters die when health <= 0 from StatsComponent
+# TODO: Make decision on how to handle jumping attacks
 
-#@export var stats : StatsComponent
 @export var animation_player : AnimationPlayer
 @export var player : PlayerController
-
-#@export var equipped_weapon : WeaponData
 @export var weapon_manager : WeaponManager
-
-#@export var melee_hitbox : HitboxComponent
 
 var is_attacking := false
 var combo_index := 0
@@ -50,6 +45,9 @@ func start_attack(weapon : Weapon, attack : AttackData):
 
 func end_attack():
 	is_attacking = false
+
+# Hook these methods up to the 
+# correct frames of the corresponding animations. 
 
 func enable_hitbox():
 	weapon_manager.current_weapon.hitbox.monitoring = true
