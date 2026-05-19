@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://2aqssmvf5lj4"]
+
+[ext_resource type="PackedScene" uid="uid://clxncq0aqvyv5" path="res://scenes/old/player2p5D.tscn" id="1_j01wd"]
+[ext_resource type="PackedScene" uid="uid://cn4nggf84n2mq" path="res://scenes/enemy_dummy.tscn" id="2_fo5tu"]
+
+[sub_resource type="Environment" id="Environment_j01wd"]
+sdfgi_enabled = true
+fog_enabled = true
+fog_density = 0.0001
+
+[node name="world" type="Node3D" unique_id=1065663848]
+
+[node name="map" type="Node3D" parent="." unique_id=1068920422]
+
+[node name="floor" type="CSGBox3D" parent="map" unique_id=937267578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(100, 1, 10)
+
+[node name="Player2p5D" parent="." unique_id=1287347747 instance=ExtResource("1_j01wd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3599629, 0, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=561635472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 6)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=508436850]
+environment = SubResource("Environment_j01wd")
+
+[node name="Enemy" parent="." unique_id=535918597 instance=ExtResource("2_fo5tu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0)

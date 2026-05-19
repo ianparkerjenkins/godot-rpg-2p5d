@@ -1,0 +1,22 @@
+class_name HitboxComponent
+extends Area3D
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
+
+var hit_data : HitData
+
+func _ready():
+	collision_shape_3d.disabled = false
+	area_entered.connect(_on_area_entered)
+	print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+	print(self)
+	print("Monitoring:", monitoring)
+	print("Monitorable:", monitorable)
+	print("Layer:", collision_layer)
+	print("Mask:", collision_mask)
+	print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+
+func _on_area_entered(area):
+	print("foo")
+	if area is HurtboxComponent:
+		print("Hitbox intersected hurtbox")
+		area.take_hit(hit_data)

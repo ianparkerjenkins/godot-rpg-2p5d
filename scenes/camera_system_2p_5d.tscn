@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cm5615qt43sqj"]
+
+[ext_resource type="Script" uid="uid://bhyhmle3m8hvt" path="res://scripts/camera_system_2p_5d.gd" id="1_73wkt"]
+
+[node name="CameraSystem2p5D" type="Node3D" unique_id=1937165648]
+script = ExtResource("1_73wkt")
+follow_speed = 3.0
+look_ahead_speed = 2.0
+jump_height_threshold = 10.0
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1118431950]
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1496889006]
