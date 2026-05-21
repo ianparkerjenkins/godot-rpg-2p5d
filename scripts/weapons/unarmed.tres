@@ -6,7 +6,7 @@
 [sub_resource type="Resource" id="Resource_wk60b"]
 script = ExtResource("1_so3or")
 attack_name = "punch"
-damage = 5
+damage = 20
 animation_name = &"Punch_Cross"
 metadata/_custom_type_script = "uid://bbheggnqqqama"
 

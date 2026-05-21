@@ -9,20 +9,6 @@ var health := max_health
 var IS_LOCKED = false
 var IS_DOWN = false
 
-func take_damage(amount):
-	health -= amount
-
-	print("Enemy took ", amount)
-
-	if animation_player.current_animation != "knock_down":
-		IS_LOCKED = true
-		IS_DOWN = true
-		animation_player.play("knock_down")
-	
-	if health <= 0:
-		die()
-		
-	
 
 func die():
 	queue_free()

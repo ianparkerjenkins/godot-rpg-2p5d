@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d0u0ry33pi627"]
+
+[ext_resource type="Script" uid="uid://clm4l0nt1k2jv" path="res://scripts/movement_lock_component.gd" id="1_8bh8h"]
+
+[node name="MovementLockComponent" type="Node3D" unique_id=762111017]
+script = ExtResource("1_8bh8h")

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b7q0it5klxbjh"]
 
-[ext_resource type="PackedScene" uid="uid://cn4nggf84n2mq" path="res://scenes/enemy_dummy.tscn" id="2_rbc3m"]
 [ext_resource type="PackedScene" uid="uid://n6nuwuwm6bcj" path="res://scenes/player_2p5d_v3.tscn" id="3_rbc3m"]
 [ext_resource type="PackedScene" uid="uid://cm5615qt43sqj" path="res://scenes/camera_system_2p_5d.tscn" id="3_xgvp6"]
+[ext_resource type="PackedScene" uid="uid://bdb3lc1ysjdxu" path="res://scenes/enemy_dummy_v2.tscn" id="4_lhbhn"]
 
 [sub_resource type="Environment" id="Environment_j01wd"]
 sdfgi_enabled = true
@@ -29,11 +29,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 6)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=508436850]
 environment = SubResource("Environment_j01wd")
 
-[node name="Enemy" parent="." unique_id=535918597 instance=ExtResource("2_rbc3m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0)
-
 [node name="CameraSystem2p5D" parent="." unique_id=1937165648 node_paths=PackedStringArray("player") instance=ExtResource("3_xgvp6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4)
 player = NodePath("../Player")
 
 [node name="Player" parent="." unique_id=1287347747 instance=ExtResource("3_rbc3m")]
+
+[node name="EnemyDummyV2" parent="." unique_id=1649676368 instance=ExtResource("4_lhbhn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3207858, 0, 0)
+
+[node name="EnemyDummyV3" parent="." unique_id=1964861629 instance=ExtResource("4_lhbhn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)

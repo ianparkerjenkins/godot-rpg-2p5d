@@ -1,12 +1,16 @@
 class_name PlayerController
 extends CharacterBody3D
 
+# TODO: Gameover / respawn button when player dead
 # TODO: Look in arch with mouse control? 
+# TODO: Separate movement out into its own component
 
 @onready var visuals: Node3D = $visuals
 @onready var animation_player: AnimationPlayer = $visuals/UAL1_Standard/AnimationPlayer
 @onready var weapon_socket = $WeaponSocket
 @onready var combat_controller = $CombatController
+@onready var movement_lock_component: MovementLockComponent = $MovementLockComponent
+@onready var stats_component: StatsComponent = $StatsComponent
 
 @export var walk_speed := 3.0
 @export var run_speed := 5.0
@@ -15,8 +19,38 @@ extends CharacterBody3D
 @export var deceleration := 18.0
 @export var turn_speed := 10.0
 
-var movement_locked := false
+var is_hurt = false
 var facing_direction := 1.0
+
+func _ready() -> void:
+	stats_component.died.connect(_on_died)
+	stats_component.health_changed.connect(_on_health_changed)
+
+func _on_health_changed():
+	if stats_component.dead:
+		return
+
+	if is_hurt:
+		return
+
+	enter_hurt_state()
+
+
+func enter_hurt_state():
+	is_hurt = true
+
+	combat_controller.cancel_attack()
+
+	movement_lock_component.lock_movement()
+
+	animation_player.play("Hit_Head")
+
+	await animation_player.animation_finished
+
+	movement_lock_component.unlock_movement()
+
+	is_hurt = false
+
 
 func _physics_process(delta):
 
@@ -34,7 +68,7 @@ func handle_gravity(delta):
 
 
 func handle_jump():
-	if movement_locked:
+	if movement_lock_component.is_locked():
 		return
 
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
@@ -45,7 +79,7 @@ func handle_movement(delta):
 
 	var input := Input.get_axis("move_left", "move_right")
 
-	if movement_locked:
+	if movement_lock_component.is_locked() and is_on_floor():
 		input = 0
 
 	var speed = walk_speed
@@ -88,10 +122,9 @@ func handle_facing_direction(delta, input):
 	
 
 
-
 func handle_animations():
 
-	if movement_locked:
+	if movement_lock_component.is_locked():
 		return
 
 	if not is_on_floor():
@@ -113,7 +146,21 @@ func play_animation(anim_name: String):
 
 	if animation_player.current_animation != anim_name:
 		animation_player.play(anim_name)
+		
 
 func _unhandled_input(event):
-	if event.is_action_pressed("attack"):
+	if event.is_action_pressed("attack") and !combat_controller.is_attacking:
 		combat_controller.primary_attack()
+
+
+func _on_died():
+
+	#player_controller.disable_input()
+	movement_lock_component.lock_movement()
+
+	combat_controller.disable_combat()
+
+	#animation_tree["parameters/playback"].travel("death")
+	animation_player.play("Death01")
+	#game_manager.player_died()
+	print("TODO: Trigger respawn")

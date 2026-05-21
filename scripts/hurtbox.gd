@@ -1,8 +1,6 @@
 class_name HurtboxComponent
 extends Area3D
 
-signal damaged(amount)
-
 @export var stats : StatsComponent
 
 func _ready():
@@ -15,11 +13,6 @@ func _ready():
 	print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 
 func take_hit(hit_data : HitData):
-	print(hit_data)
-	if hit_data != null and hit_data.source != owner:		
-		stats.health -= hit_data.damage
-		
-		print("Took damage: ", hit_data.damage)
-		print("Remaining HP: ", stats.health, " on ", self.get_parent())
-	
-		damaged.emit(hit_data.damage)
+	if hit_data != null and hit_data.source != owner:
+		print("hit registered: ", hit_data.source, hit_data.damage)
+		stats.take_damage(hit_data.damage)
